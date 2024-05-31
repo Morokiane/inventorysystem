@@ -1,0 +1,64 @@
+[gd_scene load_steps=10 format=3 uid="uid://p4cnp5cbpvm0"]
+
+[ext_resource type="PackedScene" uid="uid://eqesalepjfay" path="res://Player.tscn" id="1_4c4jp"]
+[ext_resource type="Script" path="res://Scripts/Main.gd" id="1_7cbbq"]
+[ext_resource type="PackedScene" uid="uid://bvym0iwmupgvp" path="res://inventory/inventory.tscn" id="2_ccxk7"]
+[ext_resource type="Script" path="res://Scripts/Inventory/InventoryInterface.gd" id="3_ddpxr"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pgfhi"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_j8rls"]
+sky_material = SubResource("ProceduralSkyMaterial_pgfhi")
+
+[sub_resource type="Environment" id="Environment_atv5g"]
+background_mode = 2
+sky = SubResource("Sky_j8rls")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_3m1ml"]
+size = Vector2(20, 20)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_ntxkd"]
+data = PackedVector3Array(10, 0, 10, -10, 0, 10, 10, 0, -10, -10, 0, 10, -10, 0, -10, 10, 0, -10)
+
+[node name="Main" type="Node"]
+script = ExtResource("1_7cbbq")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_atv5g")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Ground" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_3m1ml")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Ground"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_ntxkd")
+
+[node name="Player" parent="." instance=ExtResource("1_4c4jp")]
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="InventoryInterface" type="Control" parent="UI"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_ddpxr")
+
+[node name="PlayerInventory" parent="UI/InventoryInterface" instance=ExtResource("2_ccxk7")]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 50.0
+offset_bottom = 50.0

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://c7j11er14grop"]
+
+[ext_resource type="Script" path="res://Scripts/Inventory/item_data.gd" id="1_uyqrf"]
+[ext_resource type="Texture2D" uid="uid://fs8b1bvwdgm7" path="res://Transparent Icons.png" id="2_kw30u"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_16cni"]
+atlas = ExtResource("2_kw30u")
+region = Rect2(0, 448, 32, 32)
+
+[resource]
+script = ExtResource("1_uyqrf")
+name = "Apple"
+description = "crispy"
+stackable = true
+texture = SubResource("AtlasTexture_16cni")
