@@ -5,6 +5,7 @@ const Slot = preload("res://inventory/slot.tscn")
 @onready var item_grid: GridContainer = $MarginContainer/ItemGrid
 
 func SetInventoryData(inventory_data: InventoryData) -> void:
+	inventory_data.inventory_updated.connect(PopulateItemGrid)
 	PopulateItemGrid(inventory_data)
 
 func PopulateItemGrid(inventory_data: InventoryData) -> void:
