@@ -22,6 +22,10 @@ func OnInventoryInteract(inventory_data: InventoryData, index: int, button: int)
 			grabbed_slot_data = inventory_data.GrabSlotData(index)
 		[_, MOUSE_BUTTON_LEFT]: # _ is a wildcard that means anything that is not null
 			grabbed_slot_data = inventory_data.DropSlotData(grabbed_slot_data, index)
+		[null, MOUSE_BUTTON_RIGHT]:
+			pass
+		[_, MOUSE_BUTTON_RIGHT]: # _ is a wildcard that means anything that is not null
+			grabbed_slot_data = inventory_data.DropSingleSlotData(grabbed_slot_data, index)
 
 	UpdateGrabbedSlot()
 

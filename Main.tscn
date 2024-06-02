@@ -68,3 +68,5 @@ offset_bottom = 50.0
 visible = false
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0

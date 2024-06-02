@@ -29,9 +29,20 @@ func DropSlotData(grabbed_slot_data: SlotData, index: int) -> SlotData:
 	inventory_updated.emit(self)
 	return return_slot_data
 
-	# slot_datas[index] = grabbed_slot_data
-	# inventory_updated.emit(self)
-	# return slot_data
+func DropSingleSlotData(grabbed_slot_data: SlotData, index: int) -> SlotData:
+	var slot_data = slot_datas[index]
+
+	if !slot_data:
+		slot_datas[index] = grabbed_slot_data.CreateSingleSlotData()
+	elif slot_data.CanMerge(grabbed_slot_data):
+		slot_data.FullyMerge(grabbed_slot_data.CreateSingleSlotData())
+
+	inventory_updated.emit(self)
+
+	if grabbed_slot_data.quantity > 0:
+		return grabbed_slot_data
+	else:
+		return null
 
 func OnSlotClicked(index: int, button: int) -> void:
 	inventory_interact.emit(self, index, button)
